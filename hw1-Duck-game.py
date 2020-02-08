@@ -33,8 +33,6 @@ class criminal:
         pass
     def look(self):
         return self.photo + self.bag
-    def paint(self,):
-        print(f'{self} умеет красить заборы')
     def kick(self):
         return round(5 * rn.random(),2)
 
