@@ -2,12 +2,14 @@
 import random as rn
 import time
 
+
 def check_weather():
-    seasons = ['☀','⛈','❄']
+    seasons = ['☀', '⛈', '❄']
     weather = rn.choice(seasons)
     return weather
 
-class duck:
+
+class Duck:
     name = 'Говорящая утка'
     profession = 'Маляр'
     bag = '🍺'
@@ -15,26 +17,26 @@ class duck:
     anger = 1
     health = 50
 
-    def __init__(self):
-        pass
     def look(self):
         return self.photo + self.bag
-    def kick(self):
-        return round((1 + self.anger) * rn.random(),2)
 
-class criminal:
+    def kick(self):
+        return round((1 + self.anger) * rn.random(), 2)
+
+
+class Criminal:
     name = 'Васёк'
     bag = '🍺'
     photo = '👿'
     anger = 10
     health = 10
 
-    def __init__(self):
-        pass
     def look(self):
         return self.photo + self.bag
+
     def kick(self):
-        return round(5 * rn.random(),2)
+        return round(5 * rn.random(), 2)
+
 
 def you_loose(duck):
     print(f'{duck.name} чувствует себя как-то нехорошо.')
@@ -43,15 +45,17 @@ def you_loose(duck):
           '############ G A M E  O V E R ###############\n'
           '#############################################')
 
+
 def you_win(duck):
     print(f'{duck.name} счастлив, как никогда ранее.')
     time.sleep(1.6)
     print('#############################################\n'
           '############## Y O U  W I N   ###############\n'
           '#############################################')
-    
+
+
 def stats(person):
-    return (f'♥:{person.health} 😠:{person.anger} - {person.look()} - {person.name}')
+    return f'♥:{person.health} 😠:{person.anger} - {person.look()} - {person.name}'
 
 
 def drink_beer(duck):
@@ -60,6 +64,7 @@ def drink_beer(duck):
     print(f'{stats(duck)} залпом выпивает 🍺. Оно так себе влияет на здоровье')
     time.sleep(1.6)
     return
+
 
 def step1(duck):
     print(
@@ -77,8 +82,8 @@ def step1(duck):
         duck.bag = '☂'
     return step2(duck)
 
-def step2(duck):
 
+def step2(duck):
     while duck.health > 0:
         weather = check_weather()
         print(f'{weather} - {stats(duck)} гуляет')
@@ -96,7 +101,7 @@ def step2(duck):
                 time.sleep(1.6)
                 duck.health -= 1
             else:
-                print(f'Молния попадает прямо в зонтик! \n {stats(duck)} не вредима, но просто в ярости!')
+                print(f'Молния попадает прямо в зонтик! \n {stats(duck)} невредима, но просто в ярости!')
                 duck.anger += 5
             print(f'Спасаясь от непогоды, {duck.name} забегает в цирк.')
             time.sleep(1.6)
@@ -104,9 +109,10 @@ def step2(duck):
         else:
             print(f'{weather} - {stats(duck)} молча гуляет')
             time.sleep(1.6)
-            gopnik = criminal()
-            return step4_gopnik(duck,gopnik)
+            gopnik = Criminal()
+            return step4_gopnik(duck, gopnik)
     you_loose(duck)
+
 
 def step3_beer(duck):
     items = list(duck.bag)
@@ -115,21 +121,22 @@ def step3_beer(duck):
         drink_beer(duck)
         return step2(duck)
     except ValueError:
-        duck.anger = round(duck.anger * 1.7,2)
-        duck.health = round(duck.health * 0.9,2)
+        duck.anger = round(duck.anger * 1.7, 2)
+        duck.health = round(duck.health * 0.9, 2)
         print(f'{stats(duck)} грустит: в сумке что-то не то. нужно раздобыть пивка')
         time.sleep(1.6)
         return step2(duck)
 
-def step4_gopnik(duck,gopnik):
+
+def step4_gopnik(duck, gopnik):
     print(f'{stats(duck)} неспешно прогуливался по парку, когда на него внезапно напали')
     time.sleep(1.6)
 
     while duck.health > -1 and gopnik.health > 0:
-        enemies = {gopnik,duck}
+        enemies = {gopnik, duck}
         for enemy in enemies:
-            damage = round(enemy.kick(),2)
-            other_enemy = list(enemies.difference({enemy,}))[0]
+            damage = round(enemy.kick(), 2)
+            other_enemy = list(enemies.difference({enemy, }))[0]
             print(f'{stats(enemy)} наносит удар. Урон -{damage}')
             time.sleep(1.6)
             other_enemy.health -= damage
@@ -142,16 +149,16 @@ def step4_gopnik(duck,gopnik):
         duck.bag = gopnik.bag
         return step2(duck)
 
-def step5_circus(duck):
-    today_vacancy = rn.choice(['Говорящая утка','Маляр'])
 
+def step5_circus(duck):
+    today_vacancy = rn.choice(['Говорящая утка', 'Маляр'])
 
     print('\nЦиркач: как здорово, что вы зашли. У нас как раз открыта кое-какая вакансия.')
     time.sleep(1.6)
     print('Циркач: кто-вы?')
 
     option = ''
-    options = {'1','2'}
+    options = {'1', '2'}
 
     while option not in options:
         print('Выберите: \n '
@@ -178,6 +185,7 @@ def step5_circus(duck):
             duck.anger += 2
             return step2(duck)
 
+
 if __name__ == '__main__':
-    Utka_Malyar = duck()
+    Utka_Malyar = Duck()
     step1(Utka_Malyar)
